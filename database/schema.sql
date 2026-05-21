@@ -78,3 +78,11 @@ CREATE TABLE order_items (
     CONSTRAINT chk_item_quantity CHECK (quantity > 0),
     CONSTRAINT chk_item_price CHECK (price_at_purchase >= 0.00)
 );
+
+CREATE TABLE refresh_tokens (
+    id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT UNIQUE NOT NULL,
+    token VARCHAR(255) UNIQUE NOT NULL,
+    expiry_date TIMESTAMPTZ NOT NULL,
+    CONSTRAINT fk_refresh_tokens_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
