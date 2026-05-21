@@ -43,7 +43,12 @@ public class UserService {
     /**
      * Validates if login credentials are correct using matches().
      */
-    public User loginUser(LoginRequest request) {
+    @Autowired
+    private com.autonova.backend.security.JwtService jwtService;
+    @Autowired
+    private com.autonova.backend.security.RefreshTokenService refreshTokenService;
+
+    public com.autonova.backend.dto.AuthResponse loginUser(com.autonova.backend.dto.LoginRequest request) {
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("Invalid email or password!"));
 
@@ -51,6 +56,15 @@ public class UserService {
             throw new RuntimeException("Invalid email or password!");
         }
 
-        return user;
+        String accessToken = jwtService.generateAccessToken(user);
+        com.autonova.backend.model.RefreshToken refreshToken = refreshTokenService.createRefreshToken(user.getId());
+
+        return new com.autonova.backend.dto.AuthResponse(
+                accessToken,
+                refreshToken.getToken(),
+                user.getId(),
+                user.getEmail(),
+                user.getRole()
+        );
     }
 }

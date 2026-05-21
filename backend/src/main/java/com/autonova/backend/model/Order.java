@@ -1,6 +1,7 @@
 package com.autonova.backend.model;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -38,6 +39,7 @@ public class Order {
     // One order contains Many line items.
     // cascade = CascadeType.ALL means if we save an Order, all its items are saved automatically.
     // orphanRemoval = true means if we remove an item from this list, it gets deleted from the database.
+    @JsonManagedReference
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> items = new ArrayList<>();
 }

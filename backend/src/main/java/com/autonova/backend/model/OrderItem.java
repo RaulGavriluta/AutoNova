@@ -3,6 +3,7 @@ package com.autonova.backend.model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "order_items")
@@ -17,6 +18,7 @@ public class OrderItem {
     private Long id;
 
     // Many order items belong to One parent order
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
