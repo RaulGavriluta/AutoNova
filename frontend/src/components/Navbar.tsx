@@ -1,13 +1,31 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export default function Navbar() {
+  const linkStyles = ({ isActive }: { isActive: boolean }) =>
+    `font-body font-medium px-4 py-2 rounded-lg transition-colors duration-200 ${
+      isActive
+        ? 'bg-primary text-white shadow-sm shadow-primary/20'
+        : 'text-text-muted hover:text-primary hover:bg-primary/5'
+    }`;
+
   return (
-    <nav className="bg-slate-800 border-b border-slate-700 p-4 flex justify-between items-center shadow-md">
-      <Link to="/" className="text-2xl font-extrabold text-blue-400 tracking-tight">AutoNova</Link>
-      <div className="flex gap-6 font-medium">
-        <Link to="/" className="hover:text-blue-400 transition-colors">Catalog</Link>
-        <Link to="/login" className="hover:text-emerald-400 transition-colors">Login</Link>
-        <Link to="/register" className="hover:text-purple-400 transition-colors">Register</Link>
+    <nav className="bg-bg-surface border-b border-brand-border px-8 py-4 flex justify-between items-center shadow-sm">
+      <div className="flex items-center gap-2">
+        <NavLink to="/" className="text-2xl font-display font-bold text-primary tracking-tight">
+          AutoNova
+        </NavLink>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <NavLink to="/" className={linkStyles}>
+          Catalog
+        </NavLink>
+        <NavLink to="/login" className={linkStyles}>
+          Login
+        </NavLink>
+        <NavLink to="/register" className={linkStyles}>
+          Register
+        </NavLink>
       </div>
     </nav>
   );
