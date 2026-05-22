@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import axiosClient from '../../../config/axiosClient';
 import { setCredentials } from '../store/authSlice';
@@ -12,6 +12,9 @@ export default function LoginPage() {
   
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  const fromLink = location.state?.from?.pathname || '/';
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,7 +34,7 @@ export default function LoginPage() {
       // Dispatch the full AuthResponse data directly into Redux Store
       dispatch(setCredentials(response.data));
       
-      navigate('/');
+      navigate(fromLink, {replace: true});
     } catch (err: any) {
       setError(
         err.response?.data || 

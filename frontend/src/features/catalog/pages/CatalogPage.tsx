@@ -96,7 +96,7 @@ export default function CatalogPage() {
                   <span>{product.brand}</span>
                   <span className="bg-bg-main px-2 py-0.5 rounded text-text-muted font-normal">{product.category}</span>
                 </div>
-                <h3 className="text-base font-custom font-bold text-text-base line-clamp-2 min-h-[3rem]">
+                <h3 className="text-base font-custom font-bold text-text-base line-clamp-2 min-h-12">
                   {product.name}
                 </h3>
                 <div className="flex justify-between items-center mt-auto pt-2">
