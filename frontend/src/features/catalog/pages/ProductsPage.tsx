@@ -245,7 +245,7 @@ export default function ProductsPage() {
             </select>
           </div>
 
-          <div className="flex flex-col gap-3 pt-4 border-t border-border-custom/30">
+          <div className="flex flex-col gap-3 pt-4">
             <label className="text-xs font-bold uppercase tracking-wider text-text-muted">
               Category
             </label>
@@ -263,7 +263,7 @@ export default function ProductsPage() {
             </select>
           </div>
 
-          <div className="flex flex-col gap-3 pt-4 border-t border-border-custom/30">
+          <div className="flex flex-col gap-3 pt-4">
             <label className="text-xs font-bold uppercase tracking-wider text-text-muted">
               Manufacturer
             </label>
@@ -281,7 +281,7 @@ export default function ProductsPage() {
             </select>
           </div>
 
-          <label className="flex items-center gap-3 cursor-pointer select-none text-sm pt-4 border-t border-border-custom/30">
+          <label className="flex items-center gap-3 cursor-pointer select-none text-sm pt-4">
             <div className="relative">
               <input
                 type="checkbox"
