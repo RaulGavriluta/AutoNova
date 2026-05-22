@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { type Product } from '../../../types/catalog.types';
 import { productService } from '../../../services/productService';
+import { Link } from 'react-router-dom';
 
 export default function CatalogPage() {
-  const [selectedBrand, setSelectedBrand] = useState('');
   
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -37,7 +37,7 @@ export default function CatalogPage() {
             Original & Premium Quality Only
           </span>
           <h1 className="text-4xl md:text-6xl font-custom font-bold text-bg-surface tracking-tight max-w-2xl leading-tight">
-            Engineered Parts for <span className="text-secondary">Uncompromising</span> Performance
+            Engineered Parts for <span className="text-text-base">Uncompromising</span> Performance
           </h1>
           <p className="text-bg-main/80 text-base md:text-lg max-w-xl leading-relaxed">
             Find and source certified automotive components tailored precisely to your vehicle's factory specifications.
@@ -53,39 +53,6 @@ export default function CatalogPage() {
         </div>
       </section>
 
-      {/* 2. QUICK VEHICLE SELECTOR */}
-      <section id="selector" className="max-w-4xl w-full mx-auto px-4 sm:px-6">
-        <div className="bg-bg-surface border border-border-custom p-6 sm:p-8 rounded-2xl shadow-sm">
-          <div className="mb-6">
-            <h2 className="text-xl font-custom font-bold text-text-base">Select Your Vehicle</h2>
-            <p className="text-text-muted text-sm mt-1">Guaranteed fitment for your specific model.</p>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <select 
-              value={selectedBrand} 
-              onChange={(e) => setSelectedBrand(e.target.value)}
-              className="bg-bg-main border border-border-custom text-text-base rounded-xl p-3 focus:outline-none focus:border-primary transition-colors cursor-pointer text-sm"
-            >
-              <option value="">Select Brand</option>
-              <option value="audi">Audi</option>
-              <option value="bmw">BMW</option>
-              <option value="vw">Volkswagen</option>
-            </select>
-
-            <select className="bg-bg-main border border-border-custom text-text-base rounded-xl p-3 focus:outline-none focus:border-primary transition-colors cursor-pointer text-sm" disabled={!selectedBrand}>
-              <option value="">Select Model</option>
-              <option value="a4">A4</option>
-              <option value="3series">3 Series</option>
-            </select>
-
-            <button className="bg-primary hover:bg-primary-hover text-bg-main font-medium rounded-xl p-3 transition-colors shadow-sm cursor-pointer text-sm">
-              Search Compatible Parts
-            </button>
-          </div>
-        </div>
-      </section>
-
       {/* 3. FEATURED PRODUCTS PREVIEW */}
       <section id="products" className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col gap-8">
         <div className="flex justify-between items-end border-b border-border-custom pb-4">
@@ -94,7 +61,7 @@ export default function CatalogPage() {
             <p className="text-text-muted text-sm mt-1">Most demanded original parts in stock.</p>
           </div>
           <button className="text-sm font-medium text-primary hover:text-primary-hover transition-colors hidden sm:block">
-            View All Parts &rarr;
+            <Link to ="/products">View All Parts &rarr;</Link> 
           </button>
         </div>
 
@@ -183,7 +150,7 @@ export default function CatalogPage() {
       {/* 4. VALUES / FEATURES */}
       <section className="bg-primary text-bg-main rounded-3xl p-8 sm:p-12 mx-4 sm:mx-0 grid grid-cols-1 sm:grid-cols-3 gap-8">
         <div className="flex gap-4 items-start">
-          <div className="p-3 bg-bg-surface/10 text-secondary rounded-xl shrink-0">
+          <div className="p-3 bg-bg-surface/10 text-text-base rounded-xl shrink-0">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
@@ -195,7 +162,7 @@ export default function CatalogPage() {
         </div>
 
         <div className="flex gap-4 items-start">
-          <div className="p-3 bg-bg-surface/10 text-secondary rounded-xl shrink-0">
+          <div className="p-3 bg-bg-surface/10 text-text-base rounded-xl shrink-0">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0" />
             </svg>
@@ -207,7 +174,7 @@ export default function CatalogPage() {
         </div>
 
         <div className="flex gap-4 items-start">
-          <div className="p-3 bg-bg-surface/10 text-secondary rounded-xl shrink-0">
+          <div className="p-3 bg-bg-surface/10 text-text-base rounded-xl shrink-0">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
             </svg>

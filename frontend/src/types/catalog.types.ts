@@ -6,10 +6,15 @@ export interface Product {
   category: string;
   price: number;          
   stockQuantity: number;  
-  imageUrl?: string;      
+  imageUrl?: string; 
+  compatibleVehicles?: CarVehicle[];  
 }
 
-export interface VehicleFilter {
+export interface CarVehicle {
+  id: number;
   brand: string;
   model: string;
+  generation?: string;
+  yearStart: number;
+  yearEnd?: number;
 }
