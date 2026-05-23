@@ -18,9 +18,10 @@ const initialState: CartState = {
   totalPrice: 0,
 };
 
+// Funcție utilitară pentru a recalcula prețul și cantitatea totală din coș
 const recalculateTotals = (state: CartState) => {
   state.totalQuantity = state.items.reduce((sum, item) => sum + item.quantity, 0);
-  state.totalPrice = state.items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  state.totalPrice = state.items.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
 };
 
 const cartSlice = createSlice({
@@ -29,15 +30,19 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action: PayloadAction<Product>) => {
       const product = action.payload;
+      
       const existingItem = state.items.find(item => item.product.id === product.id);
 
       if (existingItem) {
         if (existingItem.quantity < product.stockQuantity) {
           existingItem.quantity += 1;
+        } else {
+          alert(`Nu poți adăuga mai multe produse. Stocul maxim din bază de date este de ${product.stockQuantity} bucăți.`);
         }
       } else {
         state.items.push({ product, quantity: 1 });
       }
+
       recalculateTotals(state);
     },
     

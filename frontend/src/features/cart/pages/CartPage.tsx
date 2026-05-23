@@ -105,7 +105,7 @@ export default function CartPage() {
             onClick={() => dispatch(clearCart())}
             className="text-xs text-text-muted hover:text-red-600 font-semibold text-left ml-2 mt-2 cursor-pointer w-fit transition-colors"
           >
-            Clear Entire Order Context
+            Clear Entire Cart
           </button>
         </div>
 

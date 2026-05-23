@@ -3,8 +3,10 @@ import { type Product, type CarVehicle } from "../../../types/catalog.types";
 import { productService } from "../../../services/productService";
 import { vehicleService } from "../../../services/vehicleService";
 import { FiSearch, FiSliders, FiCheck, FiCpu } from "react-icons/fi";
+import AddToCartButton from "../../../components/AddToCartButton";
 
 export default function ProductsPage() {
+ 
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -188,7 +190,6 @@ export default function ProductsPage() {
               </option>
             ))}
           </select>
-
         </div>
       </div>
 
@@ -422,12 +423,7 @@ export default function ProductsPage() {
                         <span className="text-base font-bold text-text-base">
                           ${product.price.toFixed(2)}
                         </span>
-                        <button
-                          disabled={product.stockQuantity === 0}
-                          className="bg-primary text-bg-main hover:bg-primary-hover disabled:bg-text-muted/20 disabled:text-text-muted/40 text-xs font-semibold py-2 px-3 rounded-lg transition-all cursor-pointer shadow-sm disabled:cursor-not-allowed"
-                        >
-                          Add to Cart
-                        </button>
+                        <AddToCartButton product={product} />
                       </div>
                     </div>
                   </div>

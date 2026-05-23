@@ -38,7 +38,6 @@ export default function Navbar() {
 
   return (
     <nav className="bg-bg-main relative z-50 border-b border-border-custom/40">
-
       {/* PRINCIPAL NAVBAR CONTAINER */}
       <div className="px-6 md:px-8 py-4 flex justify-between items-center max-w-7xl mx-auto">
         {/* LOGO */}
@@ -67,23 +66,28 @@ export default function Navbar() {
               Login
             </NavLink>
           ) : (
-            <div className="flex items-center gap-3 ml-2 border-l border-border-custom/60 pl-5">
-              <NavLink to="/cart" className={linkStyles + " relative flex items-center gap-2"}>
-                <FiShoppingCart className="text-lg" />
-                <span>Cart</span>
-                {totalQuantity > 0 && (
-                  <span className="bg-secondary text-bg-surface text-[10px] font-bold px-1.5 py-0.5 rounded-full">
-                    {totalQuantity}
-                  </span>
-                )}
-              </NavLink>
-
-              <button 
-                title={user?.email} 
+            <div className="flex items-center gap-3 ml-2">
+              <button
+                title={user?.email}
                 className="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary text-lg hover:bg-primary hover:text-bg-surface transition-all duration-200 cursor-pointer"
               >
                 <FiUser />
               </button>
+
+              <NavLink
+                to="/cart"
+                className={({ isActive }) =>
+                  linkStyles({ isActive }) + " relative flex items-center gap-2"
+                }
+              >
+                <FiShoppingCart className="text-lg" />
+                <span>Cart</span>
+                {totalQuantity > 0 && (
+                  <span className="absolute -top-1 -right-2 bg-secondary text-bg-surface text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-xs animate-fade-in">
+                    {totalQuantity}
+                  </span>
+                )}
+              </NavLink>
 
               <button
                 onClick={handleLogout}
@@ -122,8 +126,8 @@ export default function Navbar() {
           Home
         </NavLink>
 
-        <NavLink 
-          to="/products" 
+        <NavLink
+          to="/products"
           className={mobileLinkStyles}
           onClick={() => setIsOpen(false)}
         >
@@ -140,14 +144,14 @@ export default function Navbar() {
           </NavLink>
         ) : (
           <>
-            <NavLink 
-              to="/cart" 
+            <NavLink
+              to="/cart"
               className={mobileLinkStyles}
               onClick={() => setIsOpen(false)}
             >
               Cart {totalQuantity > 0 && `(${totalQuantity})`}
             </NavLink>
-            
+
             <div className="flex flex-col gap-2 pt-3 border-t border-border-custom/40">
               <div className="flex items-center gap-2 px-4 py-2 text-text-muted text-sm">
                 <FiUser className="text-primary" />
