@@ -3,16 +3,40 @@ import { type RootState } from '../../../store';
 import { updateQuantity, removeFromCart, clearCart } from '../store/cartSlice';
 import { Link } from 'react-router-dom';
 import { FiTrash2, FiMinus, FiPlus, FiShoppingBag, FiArrowRight } from 'react-icons/fi';
+import toast from 'react-hot-toast';
 
 export default function CartPage() {
   const { items, totalPrice } = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch();
 
-  const handleQuantityChange = (productId: number, currentQty: number, change: number, maxStock: number) => {
+  const handleQuantityChange = (productId: number, currentQty: number, change: number, maxStock: number, productName: string) => {
     const newQty = currentQty + change;
+    
+    if (newQty === 0) {
+      dispatch(removeFromCart(productId));
+      toast.error(`Removed ${productName.split(' ')[0]} from cart`, {
+        icon: '🗑️'
+      });
+      return;
+    }
+
     if (newQty > 0 && newQty <= maxStock) {
       dispatch(updateQuantity({ productId, quantity: newQty }));
     }
+  };
+
+  const handleFullRemove = (productId: number, productName: string) => {
+    dispatch(removeFromCart(productId));
+    toast.error(`Removed ${productName.split(' ')[0]} from cart.`, {
+      icon: '🗑️'
+    });
+  };
+
+  const handleClearCart = () => {
+    dispatch(clearCart());
+    toast.error('Shopping cart cleared', {
+      icon: '🧹'
+    });
   };
 
   if (items.length === 0) {
@@ -64,8 +88,9 @@ export default function CartPage() {
               <div className="flex justify-between sm:justify-end items-center gap-6 w-full sm:w-auto border-t sm:border-t-0 pt-3 sm:pt-0 border-border-custom/40">
                 <div className="flex flex-col gap-1 items-center">
                   <div className="flex items-center bg-bg-surface border border-border-custom rounded-lg overflow-hidden">
+                    {/* BUTTON MINUS */}
                     <button 
-                      onClick={() => handleQuantityChange(item.product.id, item.quantity, -1, item.product.stockQuantity)}
+                      onClick={() => handleQuantityChange(item.product.id, item.quantity, -1, item.product.stockQuantity, item.product.name)}
                       className="p-2 text-text-muted hover:bg-bg-main transition-colors cursor-pointer text-xs"
                     >
                       <FiMinus />
@@ -73,8 +98,9 @@ export default function CartPage() {
                     <span className="px-3 text-xs font-bold font-mono text-text-base min-w-8 text-center">
                       {item.quantity}
                     </span>
+                    {/* BUTTON PLUS */}
                     <button 
-                      onClick={() => handleQuantityChange(item.product.id, item.quantity, 1, item.product.stockQuantity)}
+                      onClick={() => handleQuantityChange(item.product.id, item.quantity, 1, item.product.stockQuantity, item.product.name)}
                       className="p-2 text-text-muted hover:bg-bg-main transition-colors cursor-pointer text-xs disabled:opacity-30 disabled:cursor-not-allowed"
                       disabled={item.quantity >= item.product.stockQuantity}
                     >
@@ -91,8 +117,9 @@ export default function CartPage() {
                   <p className="text-[10px] text-text-muted">${item.product.price.toFixed(2)} each</p>
                 </div>
 
+                {/* BUTTON TRASH */}
                 <button 
-                  onClick={() => dispatch(removeFromCart(item.product.id))}
+                  onClick={() => handleFullRemove(item.product.id, item.product.name)}
                   className="text-text-muted hover:text-red-600 p-2 text-sm transition-colors cursor-pointer border border-border-custom rounded-lg bg-bg-surface hover:bg-red-50"
                 >
                   <FiTrash2 />
@@ -102,7 +129,7 @@ export default function CartPage() {
           ))}
 
           <button 
-            onClick={() => dispatch(clearCart())}
+            onClick={handleClearCart}
             className="text-xs text-text-muted hover:text-red-600 font-semibold text-left ml-2 mt-2 cursor-pointer w-fit transition-colors"
           >
             Clear Entire Cart

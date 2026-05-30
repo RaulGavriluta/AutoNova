@@ -4,6 +4,7 @@ import { type RootState } from '../store';
 import { addToCart } from '../features/cart/store/cartSlice'; 
 import { type Product } from '../types/catalog.types';
 import { FiShoppingCart } from 'react-icons/fi';
+import toast from 'react-hot-toast'; 
 
 interface AddToCartButtonProps {
   product: Product;
@@ -27,6 +28,14 @@ export default function AddToCartButton({ product, variant = 'compact' }: AddToC
   const handleAction = () => {
     if (isAuthenticated) {
       dispatch(addToCart(product));
+      
+      toast.success(
+        <div className="flex flex-col text-left">
+          <span className="text-[10px] uppercase font-bold text-secondary">{product.partBrand}</span>
+          <span className="text-xs font-medium text-text-base">Added to cart</span>
+        </div>,
+        { icon: '🔧' }
+      );
     } else {
       navigate('/login');
     }
