@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Toaster } from 'react-hot-toast'; // <--- Importul era deja pus corect
+import { Toaster } from "react-hot-toast"; // <--- Importul era deja pus corect
 import MainLayout from "../components/MainLayout";
 import Home from "../features/catalog/pages/CatalogPage";
 import Login from "../features/auth/pages/LoginPage";
@@ -7,14 +7,9 @@ import Register from "../features/auth/pages/RegisterPage";
 import ProtectedRoute from "./ProtectedRoute";
 import ProductsPage from "../features/catalog/pages/ProductsPage";
 import CartPage from "../features/cart/pages/CartPage";
+import CheckoutPage from "../features/cart/pages/CheckoutPage";
+import OrderHistoryPage from "../features/orders/pages/OrderHistoryPage";
 
-function OrdersPlaceholder() {
-  return (
-    <div className="p-8 text-center text-xl font-bold font-custom text-text-base">
-      Your Orders History (Protected)
-    </div>
-  );
-}
 
 const router = createBrowserRouter([
   {
@@ -44,11 +39,15 @@ const router = createBrowserRouter([
         children: [
           {
             path: "/orders",
-            element: <OrdersPlaceholder />,
+            element: <OrderHistoryPage />,
           },
           {
             path: "/cart",
             element: <CartPage />,
+          },
+          {
+            path: "/checkout", 
+            element: <CheckoutPage />,
           },
         ],
       },
@@ -59,25 +58,25 @@ const router = createBrowserRouter([
 export default function AppRoutes() {
   return (
     <>
-      <Toaster 
+      <Toaster
         position="bottom-right"
         toastOptions={{
           style: {
-            background: 'var(--color-bg-surface, #ffffff)', 
-            color: 'var(--color-text-base, #2c2520)',       
-            fontFamily: 'var(--font-body, "Poppins", sans-serif)', 
-            borderRadius: '12px',
-            border: '1px solid var(--color-brand-border, #e5d4bc)', 
+            background: "var(--color-bg-surface, #ffffff)",
+            color: "var(--color-text-base, #2c2520)",
+            fontFamily: 'var(--font-body, "Poppins", sans-serif)',
+            borderRadius: "12px",
+            border: "1px solid var(--color-brand-border, #e5d4bc)",
           },
           success: {
             iconTheme: {
-              primary: 'var(--color-primary, #8A5F41)', 
-              secondary: 'var(--color-bg-surface, #ffffff)',
+              primary: "var(--color-primary, #8A5F41)",
+              secondary: "var(--color-bg-surface, #ffffff)",
             },
           },
         }}
       />
-      
+
       {/* RENDERUL RUTELOR */}
       <RouterProvider router={router} />
     </>
