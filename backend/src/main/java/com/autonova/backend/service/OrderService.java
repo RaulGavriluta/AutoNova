@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +45,7 @@ public class OrderService {
         order.setUser(user);
         order.setShippingAddress(request.getShippingAddress());
         order.setStatus("PENDING");
+        order.setCreatedAt(LocalDateTime.now());
 
         BigDecimal totalOrderPrice = BigDecimal.ZERO;
         List<OrderItem> orderItems = new ArrayList<>();
